@@ -1,3 +1,29 @@
+// ==================== Dark Mode Toggle ==================== 
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    // Verificar tema guardado o usar preferencia del sistema
+    const savedTheme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Aplicar tema inicial
+    applyTheme(savedTheme);
+
+    // Event listener para el botón toggle
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+    });
+
+    function applyTheme(theme) {
+        htmlElement.setAttribute('data-theme', theme);
+        themeToggle.classList.toggle('dark-mode', theme === 'dark');
+        localStorage.setItem('theme', theme);
+    }
+});
+
 /* Scroll */
 document.addEventListener('DOMContentLoaded', () => {
     // Elementos que se animan al entrar en viewport
